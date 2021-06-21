@@ -10,3 +10,5 @@ Route::get('/', function () {
 });
 
 Route::post('tags', [App\Http\Controllers\TagController::class, 'Store']);
+
+Route::delete('tags/{tag}', [\App\Http\Controllers\TagController::class, 'Destroy']);
