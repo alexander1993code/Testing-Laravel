@@ -8,7 +8,17 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-200 py-10">
-    <div class="max-w-lg bg-white mx-auto p-5 rounded shadow">
+    <div class="max-w-4xl bg-white mx-auto p-5 rounded shadow">
+        @if($errors->any())
+        <ul>
+            @foreach($errors->all() as $error)
+                <li class="list-none p-4 mb-4 bg-red-100 text-red-500">
+                    {{ $error }}
+                </li>
+            @endforeach
+        </ul>
+
+        @endif
         <form action="tags" method="POST" class="flex mb-4">
             @csrf 
             <input type="text" name="name" class="rounded-l bg-gray-200 p-4 w-full outline-none" placeholder="Nueva etiqueta">
@@ -19,6 +29,7 @@
             @forelse($tags as $tag)
                 <tr>
                     <td class="border px-4 py-2"> {{ $tag->name }} </td>
+                    <td class="flex border px-4 py-2 ml-20"> {{ $tag->slug }} </td>
                     <td class="px-4 py-2">
                         <form action="tags/{{ $tag->id }}" method="POST">
                             @csrf
